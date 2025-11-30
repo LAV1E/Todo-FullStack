@@ -148,6 +148,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 const Dashboard = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -173,7 +174,7 @@ const Dashboard = () => {
   // GET todos
   const fetchTodos = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/todos", {
+      const res = await fetch(`${API_BASE_URL}/api/todos`, {
         headers: { Authorization: "Bearer " + token },
       });
 
@@ -190,7 +191,7 @@ const Dashboard = () => {
     if (!title.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/todos", {
+      const res = await fetch(`${API_BASE_URL}/api/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -224,7 +225,7 @@ const Dashboard = () => {
     if (!editingTitle.trim()) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/todos/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -245,7 +246,7 @@ const Dashboard = () => {
   // TOGGLE todo
   const toggleTodo = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/todos/${id}/toggle`, {
+      const res = await fetch(`${API_BASE_URL}/api/todos/${id}/toggle`, {
         method: "PATCH",
         headers: { Authorization: "Bearer " + token },
       });
@@ -260,7 +261,7 @@ const Dashboard = () => {
   // DELETE todo
   const deleteTodo = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/todos/${id}`, {
+      await fetch(`${API_BASE_URL}/api/todos/${id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token },
       });

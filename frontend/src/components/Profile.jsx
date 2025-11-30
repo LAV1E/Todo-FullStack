@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 const Profile = () => {
   const { isAuthenticated } = useAuth();
@@ -12,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     if (!isAuthenticated) return navigate("/login");
 
-    fetch("http://localhost:5000/api/users/me", {
+    fetch(`${API_BASE_URL}/api/users/me`, {
       headers: {
         Authorization: "Bearer " + token,
       },
