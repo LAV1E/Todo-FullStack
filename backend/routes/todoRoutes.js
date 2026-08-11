@@ -1,42 +1,3 @@
-// const express = require("express");
-// const auth = require("../middleware/authMiddleware");
-// const Todo = require("../models/Todo");
-
-// const router = express.Router();
-
-// // Protect all todo routes
-// router.use(auth);
-
-// router.get("/", async (req, res) => {
-//   const todos = await Todo.find({ user: req.user._id }).sort("-createdAt");
-//   res.json(todos);
-// });
-
-// router.post("/", async (req, res) => {
-//   const todo = await Todo.create({
-//     user: req.user._id,
-//     title: req.body.title,
-//   });
-
-//   res.status(201).json(todo);
-// });
-
-// router.patch("/:id/toggle", async (req, res) => {
-//   const todo = await Todo.findOne({ _id: req.params.id, user: req.user._id });
-
-//   todo.completed = !todo.completed;
-//   await todo.save();
-
-//   res.json(todo);
-// });
-
-// router.delete("/:id", async (req, res) => {
-//   await Todo.findOneAndDelete({ _id: req.params.id, user: req.user._id });
-//   res.json({ message: "Todo deleted" });
-// });
-
-// module.exports = router;
-
 
 const express = require("express");
 const auth = require("../middleware/authMiddleware");
@@ -110,6 +71,14 @@ router.delete("/:id", async (req, res) => {
   if (!todo) return res.status(404).json({ message: "Todo not found" });
 
   res.json({ message: "Todo deleted" });
+});
+
+router.get("/", async (req, res) => {
+  const todos = await Todo.find({ user: req.user._id }).sort("-createdAt");
+
+  console.log("Todos from MongoDB:", todos);
+
+  res.json(todos);
 });
 
 module.exports = router;
